@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="leaf-black-natural-shape.png" />
     <script>
       tailwind.config = {
         theme: {
@@ -793,7 +794,7 @@
       document.getElementById("currentYear").textContent =
         new Date().getFullYear();
 
-      // Simple form submission handler
+      // Form submission handler - sends email with default mail client
       document
         .getElementById("contactForm")
         .addEventListener("submit", function (e) {
@@ -802,11 +803,39 @@
           // Get form values
           const name = document.getElementById("name").value;
           const email = document.getElementById("email").value;
+          const organization = document.getElementById("organization").value;
+          const phone = document.getElementById("phone").value;
+          const service = document.getElementById("service").value;
+          const message = document.getElementById("message").value;
 
           if (name && email) {
+            // Construct email body with all form information
+            const emailBody = `Contact Request from Earthblend Ventures Website
+
+Name: ${name}
+Organization: ${organization || "Not provided"}
+Email: ${email}
+Phone: ${phone || "Not provided"}
+Service of Interest: ${service || "Not specified"}
+
+Message:
+${message || "No message provided"}
+
+---
+This email was sent from the Earthblend Ventures contact form.`;
+
+            // Create mailto link with specific email address
+            const mailtoLink = `mailto:carowkimani@gmail.com?subject=Contact Request from ${encodeURIComponent(name)}&body=${encodeURIComponent(emailBody)}`;
+
+            // Open default mail client
+            window.location.href = mailtoLink;
+
+            // Show confirmation
             alert(
-              `Thank you ${name}! Your message has been sent. Earthblend Ventures will contact you at ${email} shortly.`,
+              `Thank you ${name}! Your default email client is opening with your message ready to send to Earthblend Ventures.`,
             );
+
+            // Reset form
             document.getElementById("contactForm").reset();
           } else {
             alert("Please fill in at least your name and email address.");
