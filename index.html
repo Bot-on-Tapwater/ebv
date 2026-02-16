@@ -43,27 +43,36 @@
     </style>
   </head>
   <body class="font-inter bg-gray-50 text-gray-800">
-    <!-- Navigation -->
+    <!-- Navigation with mobile hamburger -->
     <nav class="bg-earth-green text-white sticky top-0 z-50 shadow-lg">
       <div class="container mx-auto px-4 py-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="flex items-center mb-4 md:mb-0">
+        <div class="flex justify-between items-center">
+          <!-- Logo + title (always visible) -->
+          <div class="flex items-center">
             <div
               class="bg-accent rounded-full w-10 h-10 flex items-center justify-center mr-3"
             >
               <i class="fas fa-leaf text-earth-dark text-xl"></i>
             </div>
-            <div>
-              <h1 class="text-2xl font-bold">Earthblend Ventures</h1>
-              <p class="text-sm text-gray-300">
+            <div class="hidden xs:block sm:block">
+              <!-- keep visible on all sizes -->
+              <h1 class="text-2xl font-bold leading-tight">
+                Earthblend Ventures
+              </h1>
+              <p class="text-sm text-gray-300 hidden md:block">
+                <!-- hide tagline on very small if needed -->
                 Climate Advisory & Carbon Due Diligence
               </p>
             </div>
           </div>
 
-          <div
-            class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8"
-          >
+          <!-- Hamburger button (visible on mobile) -->
+          <button id="menu-btn" class="block md:hidden focus:outline-none">
+            <i class="fas fa-bars text-2xl hover:text-accent"></i>
+          </button>
+
+          <!-- Desktop menu (hidden on mobile, shown on md+) -->
+          <div class="hidden md:flex space-x-8">
             <a href="#overview" class="hover:text-accent section-transition"
               >Overview</a
             >
@@ -83,6 +92,31 @@
               >Contact</a
             >
           </div>
+        </div>
+
+        <!-- Mobile menu (hidden by default, toggled by hamburger) -->
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden mt-4 pt-2 border-t border-earth-light flex flex-col space-y-3"
+        >
+          <a href="#overview" class="hover:text-accent section-transition py-1"
+            >Overview</a
+          >
+          <a href="#services" class="hover:text-accent section-transition py-1"
+            >Services</a
+          >
+          <a href="#clients" class="hover:text-accent section-transition py-1"
+            >Clients</a
+          >
+          <a href="#value" class="hover:text-accent section-transition py-1"
+            >Value Proposition</a
+          >
+          <a href="#mission" class="hover:text-accent section-transition py-1"
+            >Mission</a
+          >
+          <a href="#contact" class="hover:text-accent section-transition py-1"
+            >Contact</a
+          >
         </div>
       </div>
     </nav>
@@ -130,38 +164,7 @@
       </div>
     </header>
 
-    <!-- Company Details -->
-    <!-- <section class="py-12 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-            <div class="text-center">
-              <i class="fas fa-building text-earth-green text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold mb-2">Company Name</h3>
-              <p class="text-lg">Earthblend Ventures</p>
-            </div>
-          </div>
-
-          <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-            <div class="text-center">
-              <i class="fas fa-user-tie text-earth-green text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold mb-2">Founder & Lead Consultant</h3>
-              <p class="text-lg">Caroline Kimani</p>
-            </div>
-          </div>
-
-          <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-            <div class="text-center">
-              <i
-                class="fas fa-map-marker-alt text-earth-green text-3xl mb-4"
-              ></i>
-              <h3 class="text-xl font-bold mb-2">Location</h3>
-              <p class="text-lg">Nairobi, Kenya</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
+    <!-- Company Details (commented out) -->
 
     <!-- Overview Section -->
     <section id="overview" class="py-16 bg-gray-50">
@@ -754,27 +757,6 @@
               Independent Climate Advisory & Carbon Due Diligence
             </p>
           </div>
-
-          <!-- <div class="flex space-x-6">
-            <a
-              href="#"
-              class="text-gray-400 hover:text-accent transition duration-300"
-            >
-              <i class="fab fa-linkedin-in text-xl"></i>
-            </a>
-            <a
-              href="#"
-              class="text-gray-400 hover:text-accent transition duration-300"
-            >
-              <i class="fab fa-twitter text-xl"></i>
-            </a>
-            <a
-              href="#"
-              class="text-gray-400 hover:text-accent transition duration-300"
-            >
-              <i class="fas fa-envelope text-xl"></i>
-            </a>
-          </div> -->
         </div>
 
         <div
@@ -790,6 +772,23 @@
     </footer>
 
     <script>
+      // Hamburger toggle
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // Close menu when a link is clicked (optional but nice)
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+
       // Set current year in footer
       document.getElementById("currentYear").textContent =
         new Date().getFullYear();
